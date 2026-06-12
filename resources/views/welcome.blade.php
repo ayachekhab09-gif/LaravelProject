@@ -35,6 +35,19 @@
             margin: 30px auto;
         }
 
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 60%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
         .products {
             display: flex;
             gap: 20px;
@@ -82,6 +95,10 @@
             .card {
                 width: 90%;
             }
+
+            .search-box input {
+                width: 90%;
+            }
         }
     </style>
 </head>
@@ -101,6 +118,10 @@
 
 <div class="container">
     <h2>Our Products</h2>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search for a product...">
+    </div>
 
     <div class="products">
         <div class="card">
@@ -136,6 +157,25 @@
 <footer>
     <p>© 2026 Aya Store - Laravel Project</p>
 </footer>
+
+<script>
+    const searchInput = document.getElementById("searchInput");
+    const productCards = document.querySelectorAll(".card");
+
+    searchInput.addEventListener("keyup", function () {
+        let searchValue = searchInput.value.toLowerCase();
+
+        productCards.forEach(function (card) {
+            let productName = card.querySelector("h3").textContent.toLowerCase();
+
+            if (productName.includes(searchValue)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
