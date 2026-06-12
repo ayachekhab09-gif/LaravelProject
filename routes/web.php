@@ -1,18 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/products', function () {
-    $products = [
-        ['name' => 'Laptop', 'price' => 800],
-        ['name' => 'Smartphone', 'price' => 500],
-        ['name' => 'Headphones', 'price' => 120],
-        ['name' => 'Smart Watch', 'price' => 200],
-    ];
-
-    return view('products', compact('products'));
-});
+Route::get('/products', [ProductController::class, 'index']);
