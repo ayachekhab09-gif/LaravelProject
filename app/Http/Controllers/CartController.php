@@ -2,20 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Product;
 
 class CartController extends Controller
 {
-    private function products()
-    {
-        return [
-            1 => ['id' => 1, 'name' => 'Laptop', 'price' => 800],
-            2 => ['id' => 2, 'name' => 'Smartphone', 'price' => 500],
-            3 => ['id' => 3, 'name' => 'Headphones', 'price' => 120],
-            4 => ['id' => 4, 'name' => 'Smart Watch', 'price' => 200],
-        ];
-    }
-
     public function index()
     {
         $cart = session()->get('cart', []);
@@ -24,22 +14,21 @@ class CartController extends Controller
 
     public function add($id)
     {
-        $products = $this->products();
+        $product = Product::find($id);
 
-        if (!isset($products[$id])) {
+        if (!$product) {
             return redirect('/products');
         }
 
         $cart = session()->get('cart', []);
-        $product = $products[$id];
 
         if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
-                'id' => $product['id'],
-                'name' => $product['name'],
-                'price' => $product['price'],
+                'id' => $product->id,
+                'name' => $product->name,
+                'price' => $product->price,
                 'quantity' => 1
             ];
         }

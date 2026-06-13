@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\AdminProductController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,3 +31,14 @@ Route::get('/order-success', [CheckoutController::class, 'success']);
 Route::get('/react-products', function () {
     return view('react_products');
 });
+Route::get('/admin/products', [AdminProductController::class, 'index'])
+    ->middleware(AdminMiddleware::class);
+
+Route::post('/admin/products', [AdminProductController::class, 'store'])
+    ->middleware(AdminMiddleware::class);
+
+Route::post('/admin/products/{id}/update', [AdminProductController::class, 'update'])
+    ->middleware(AdminMiddleware::class);
+
+Route::post('/admin/products/{id}/delete', [AdminProductController::class, 'destroy'])
+    ->middleware(AdminMiddleware::class);
