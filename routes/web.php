@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AdminProductController;
+use App\Models\Product;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,3 +43,16 @@ Route::post('/admin/products/{id}/update', [AdminProductController::class, 'upda
 
 Route::post('/admin/products/{id}/delete', [AdminProductController::class, 'destroy'])
     ->middleware(AdminMiddleware::class);
+    Route::get('/api/products', function () {
+    $products = Product::with('category')->get();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Products retrieved successfully',
+        'data' => $products
+    ]);
+})->middleware('throttle:60,1');
+
+Route::get('/security', function () {
+    return view('security');
+});
