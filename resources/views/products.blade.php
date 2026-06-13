@@ -14,8 +14,19 @@
             color: #111827;
         }
 
+        .nav {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .nav a {
+            margin: 0 10px;
+            color: #2563eb;
+            font-weight: bold;
+        }
+
         table {
-            width: 70%;
+            width: 85%;
             margin: 30px auto;
             border-collapse: collapse;
             background: white;
@@ -33,34 +44,50 @@
             color: white;
         }
 
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 20px;
-            color: #2563eb;
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 9px 14px;
+            border-radius: 8px;
+            cursor: pointer;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-<h1>Products From Laravel Route</h1>
+<h1>Product Catalog</h1>
+
+<div class="nav">
+    <a href="/">Home</a>
+    <a href="/products">Products</a>
+    <a href="/cart">Cart</a>
+    <a href="/login">Admin Login</a>
+</div>
 
 <table>
     <tr>
         <th>Product Name</th>
+        <th>Description</th>
         <th>Price</th>
+        <th>Action</th>
     </tr>
 
     @foreach($products as $product)
         <tr>
             <td>{{ $product['name'] }}</td>
+            <td>{{ $product['description'] }}</td>
             <td>${{ $product['price'] }}</td>
+            <td>
+                <form method="POST" action="/cart/add/{{ $product['id'] }}">
+                    @csrf
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </td>
         </tr>
     @endforeach
 </table>
-
-<a href="/">Back to Home</a>
 
 </body>
 </html>

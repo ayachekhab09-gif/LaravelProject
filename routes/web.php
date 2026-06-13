@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
@@ -17,3 +18,8 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::get('/admin/dashboard', [AuthController::class, 'dashboard'])
     ->middleware(AdminMiddleware::class);
+
+Route::get('/cart', [CartController::class, 'index']);
+Route::post('/cart/add/{id}', [CartController::class, 'add']);
+Route::get('/cart/remove/{id}', [CartController::class, 'remove']);
+Route::get('/cart/clear', [CartController::class, 'clear']);
