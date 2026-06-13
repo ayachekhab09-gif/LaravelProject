@@ -27,3 +27,6 @@ Route::get('/cart/clear', [CartController::class, 'clear']);
 Route::get('/checkout', [CheckoutController::class, 'checkout']);
 Route::post('/place-order', [CheckoutController::class, 'placeOrder']);
 Route::get('/order-success', [CheckoutController::class, 'success']);
+Route::get('/react-products', function () {
+    return view('react_products');
+});
