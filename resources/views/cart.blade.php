@@ -112,6 +112,7 @@
 
     <div style="text-align:center;">
         <a class="btn" href="/cart/clear">Clear Cart</a>
+        <a class="btn" style="background:#16a34a;" href="/checkout">Checkout</a>
     </div>
 
 @else
